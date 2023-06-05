@@ -6,6 +6,7 @@ const Navbar = () => {
   const onLogout = () => {
     logoutService();
   };
+
   return (
     <div
       style={{
@@ -30,12 +31,16 @@ const Navbar = () => {
         <NavLink to="/">
           <h4>Home</h4>
         </NavLink>
+
+        {/* if 'user' is truthy, then render NavLink to posts*/}
         {!!user && (
           <NavLink to="posts">
             {" "}
             <h4>Posts</h4>
           </NavLink>
         )}
+
+        {/* if 'user' is/is not truthy, then render NavLink to login or logout */}
         {!!user ? (
           <h4 className="logout" onClick={onLogout}>
             Logout
