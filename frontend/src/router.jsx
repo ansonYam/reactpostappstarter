@@ -13,6 +13,7 @@ import {
 import { PostPage, postsLoader } from "./pages/Post/Post.page";
 import { postDetailsLoader } from "./pages/Post/PostDetails.page";
 import PostDetailsPage from "./pages/Post/PostDetails.page";
+import Authentication from "./pages/Auth/Authentication"
 
 export const Router = () => {
   const authCheck = useBoundStore((state) => {
@@ -36,7 +37,7 @@ export const Router = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Layout />}>
-        <Route path="login" element={<LoginPage />} />
+        <Route path="login" element={<Authentication />} />
         <Route
           path="posts"
           element={
