@@ -4,6 +4,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { MantineLogo } from '@mantine/ds';
 import { NavLink } from 'react-router-dom';
 import useBoundStore from '../../store/Store';
+import { ActionIcon, useMantineColorScheme } from '@mantine/core';
+import { IconSun, IconMoonStars } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -59,6 +61,9 @@ export default function HeaderSimple() {
     logoutService();
   };
 
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
+
   const links = [
     { label: 'Home', link: '/' },
     { label: 'Posts', link: '/posts', shouldRender: !!user },
@@ -106,7 +111,14 @@ export default function HeaderSimple() {
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
-
+        <ActionIcon
+          variant="outline"
+          color={dark ? 'yellow' : 'blue'}
+          onClick={() => toggleColorScheme()}
+          title="Toggle color scheme"
+        >
+          {dark ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />}
+        </ActionIcon>
         <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
       </Container>
     </Header>
