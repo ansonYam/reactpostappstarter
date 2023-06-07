@@ -12,7 +12,7 @@ const links = [
 
 const Layout = () => (
   <div>
-    <SimpleHeader />
+    <Navbar />
     <main>
       <Outlet />
     </main>
