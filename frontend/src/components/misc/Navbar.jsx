@@ -65,13 +65,13 @@ const Navbar = () => {
 
   const loggedInLinks = [
     { link: '/', label: 'Home' },
-    { link: 'posts', label: 'Posts' },
+    { link: '/posts', label: 'Posts' },
     { link: '#', label: 'Logout', clicks: onLogout },
   ];
 
   const loggedOutLinks = [
     { link: '/', label: 'Home' },
-    { link: 'login', label: 'Login' },
+    { link: '/login', label: 'Login' },
   ];
 
   const links = !!user
@@ -83,9 +83,9 @@ const Navbar = () => {
       key={link.label}
       to={link.link}
       className={cx(classes.link, { [classes.linkActive]: active === link.link })}
-      onClick={() => {
-        link.clicks();
+      onClick={(event) => {
         setActive(link.link);      
+        link.clicks();
       }}
     >
       {link.label}
