@@ -8,6 +8,7 @@ import {
   parseToken,
   addPost,
   posts,
+  users,
   sleep,
 } from "./fakedb";
 
@@ -53,8 +54,14 @@ app.get("/api/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
 
-  // The line below should be fixed.
   if (post) {
+    const user = users.find((user) => user.id === post.userId);
+    if (user) {
+      const postWithUser = { ...post, user };
+      res.json(postWithUser);
+    } else {
+      res.status(404).json({ error: "User not found." });
+    }
     res.json(post);
   } else {
     res.status(404).json({ error: "Post not found." });
@@ -75,6 +82,19 @@ app.post("/api/posts", (req, res) => {
   const incomingPost = req.body;
   addPost(incomingPost);
   res.status(200).json({ success: true });
+});
+
+app.put("/api/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const incomingPost = req.body;
+  const postIndex = posts.findIndex((post) => post.id === id);
+
+  if (postIndex !== -1) {
+    posts[postIndex] = { ...posts[postIndex], ...incomingPost };
+    res.status(200).json({ success: true });
+  } else {
+    res.status(404).json({ error: "Post not found." });
+  }
 });
 
 app.listen(port, () => console.log("Server is running"));
